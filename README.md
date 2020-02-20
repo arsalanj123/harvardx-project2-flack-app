@@ -1,2 +1,3 @@
-# harvardx-project2-flack-app
-harvardx-project2-flack app
+# Project 2
+
+Web Programming with Python and JavaScript
