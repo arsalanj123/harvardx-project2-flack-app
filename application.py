@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, session, render_template
+from flask import Flask, request, session, render_template, redirect
 from flask_session import Session
 #from flask_socketio import emit, SocketIO
 
@@ -17,29 +17,42 @@ app.config["SESSION_TYPE"] = 'filesystem'
 Session(app)
 
 
-@app.route("/", methods=["GET","POST"])
+@app.route("/login", methods=["GET","POST"])
 def index():
+
     #session check
     session["session_id"] = 0
     print(session["session_id"])
 
     if request.method == "GET":
-    #if session already in work
+    #if user already loggedin
         if session["session_id"] > 0:
-            return render_template("hompage.html")
-    #if session not present 
+            return redirect("homepage.html")
+    #if user not loggedin 
         else:
             return render_template("login.html")
 
-
+    #if post request
     elif request.method == "POST":
+        
+        # if user already loggedin
         if session["session_id"] > 0:
-    #if session already in work
             return render_template("hompage.html")
-    #if session not present, signup
-    # Add user   
+    # when user added username and press submit button
         else:
-            return render_template("hompage.html")
+            request.form.get("username_from_form")
+            return render_template("homepage.html")            
+
+
+#default page
+@app.route("/main", methods=["GET","POST"])
+def main():
+
+
+
+    return render_template("homepage.html")
+
+
 
 
 @app.route("/navbar", methods=["GET","POST"])
@@ -50,3 +63,10 @@ def navbar():
 @app.route("/test", methods=["GET","POST"])
 def test():
     return render_template("test.html")
+
+#default page
+@app.route("/js-test", methods=["GET","POST"])
+def js():
+
+    return render_template("js-test.html")
+
