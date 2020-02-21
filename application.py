@@ -52,6 +52,11 @@ def main():
 
     return render_template("homepage.html")
 
+#channel page
+@app.route("/channel", methods=["GET","POST"])
+def channel():
+    return render_template("channel.html")
+
 
 
 
