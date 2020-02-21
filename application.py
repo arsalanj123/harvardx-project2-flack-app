@@ -1,21 +1,20 @@
 import os
 from flask import Flask, request, session, render_template, redirect
 from flask_session import Session
-#from flask_socketio import emit, SocketIO
+from flask_socketio import SocketIO
 
 #Flask Application config
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.debug = Flask
-
-#Socket
-#socketio = SocketIO(app)
+socketio = SocketIO(app)
 
 #Session configuration
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = 'filesystem'
 Session(app)
 
+#Socket
 
 @app.route("/login", methods=["GET","POST"])
 def index():
@@ -75,3 +74,5 @@ def js():
 
     return render_template("js-test.html")
 
+if __name__ == "__main__":
+    socketio.run(app, debug=True)
