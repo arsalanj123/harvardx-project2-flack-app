@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, session, render_template, redirect
 from flask_session import Session
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, emit
 
 #Flask Application config
 app = Flask(__name__)
@@ -74,5 +74,13 @@ def js():
 
     return render_template("js-test.html")
 
+@socketio.on("submit vote")
+def vote(data):
+    selection = data["selection"]
+    print(selection)
+    emit("announce vote", {"selection": selection}, broadcast=True)
+
+
+    
 if __name__ == "__main__":
     socketio.run(app, debug=True)

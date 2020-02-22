@@ -15,52 +15,58 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  </script>
+  <script src="{{ url_for('static', filename='js/mymain.js') }}"></script>
+ 
   <!--non-default parameters -->
   <title>{{ page_title }}</title>
 
 </head>
 
 <body>
-    <div id="body" class=".container-fluid">
-      <!--Nav Bar-->
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Flack</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarsExample03">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">People</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown03">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Channels</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown03">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-          </ul>
-          <form action="/logout" method='POST' class="form-inline my-2 my-lg-0">
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
-          </form>
-        </div>
-      </nav>
-      
+  <div id="body" class=".container-fluid">
+    <!--Nav Bar-->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Flack</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03"
+        aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">People</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown03">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Channels</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown03">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <form action="/logout" method='POST' class="form-inline my-2 my-lg-0">
+          <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+        </form>
+      </div>
+    </nav>
+
     <!--Nav Bar End-->
     <div id="body-below" class="container my-3 pt-3 border ">
       <div id="chat-head">
@@ -68,153 +74,50 @@
       </div>
       <div>
 
-        <div id="chat-main-container" class="container">
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        <div class="chat-container">
-          <h4>Arsa</h4>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, voluptatibus consequatur expedita earum laborum voluptate quis dignissimos quia incidunt molestias veniam ex illo inventore est? At nihil voluptatibus expedita sunt.</p>
-          <span class="time-right">11:00</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloribus temporibus laboriosam ipsa necessitatibus neque at cupiditate. Unde voluptates voluptatem ut tempore quod aliquam delectus, amet eveniet ipsa ad rerum voluptatum.!</p>
-          <span class="time-left">11:01</span>
-        </div>
-        
-        <div class="chat-container">
-          <p>Sweet! So, what do you wanna do today?</p>
-          <span class="time-right">11:02</span>
-        </div>
-        
-        <div class="chat-container darker">
-          <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-          <span class="time-left">11:05</span>
+        <div id="chat-main-container votes" class="container">
+          <div id ="votes">
+          <div class="chat-container">
+            <h4>Arsa</h4>
+            <span class="time-right">11:00</span>
+          </div>
+
+          <div class="chat-container">
+            <p>Sweet! So, what do you wanna do today?</p>
+            <span class="time-right">11:02</span>
+          </div>
+
+          <div class="chat-container darker">
+            <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+            <span class="time-left">11:05</span>
+          </div>
         </div>
       </div>
+        
         <br>
 
         <div class="form-group">
-          <label for="comment">Send a message</label>
+          <label for="comment">Send your message</label>
           <textarea class="form-control" rows="2" id="message-to-send"></textarea>
           <br>
-          <form action="/logout" method='POST' class="form-inline my-2 my-lg-0"></form>
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button> 
-          </form>
+
+          <form id="form">
+            <input id="name" autocomplete="off" autofocus placeholder="Name" type="text">
+            <input type="submit">
+        </form>
+
           <br>
         </div>
-       
+
+        <br>
+
+        </ul>
+        <hr>
+        <button data-vote="yes">Yes</button>
+        <button data-vote="no">No</button>
+        <button data-vote="maybe">Maybe</button>
 
       </div>
     </div>
-  </body>
-  
-  </html>
+</body>
+
+</html>
