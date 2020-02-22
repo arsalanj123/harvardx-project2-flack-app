@@ -18,7 +18,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
   </script>
   <script src="{{ url_for('static', filename='js/mymain.js') }}"></script>
- 
+
   <!--non-default parameters -->
   <title>{{ page_title }}</title>
 
@@ -74,7 +74,7 @@
       </div>
       <div>
 
-        <div id="chat-main-container votes" class="container">
+        <div id="chat-main-container" class="container">
           <div id ="votes">
           <div class="chat-container">
             <h4>Arsa</h4>
@@ -92,6 +92,7 @@
           </div>
         </div>
       </div>
+      </div>
         
         <br>
 
@@ -100,11 +101,11 @@
           <textarea class="form-control" rows="2" id="message-to-send"></textarea>
           <br>
 
-          <form id="form">
-            <input id="name" autocomplete="off" autofocus placeholder="Name" type="text">
-            <input type="submit">
+          <form id="my-form">
+            <input id="message" autocomplete="off" autofocus placeholder="Name" type="text">
+            <input id="message-submit" type="submit">
         </form>
-
+        <button id="mybutton">Click Me!</button>
           <br>
         </div>
 

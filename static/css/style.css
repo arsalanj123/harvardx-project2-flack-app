@@ -1,11 +1,11 @@
 #chat-main-container{
         margin:4px, 4px; 
         padding:4px; 
-        width: 1100px; 
+        width: 920px; 
         height: 580px; 
         overflow-x: hidden; 
         overflow-x: auto; 
-        text-align:justify; 
+        text-align:justify;
 }
 
 /* Chat containers */
@@ -13,8 +13,8 @@
     border: 2px solid #dedede;
     background-color: #f1f1f1;
     border-radius: 5px;
-    padding: 7px;
-    margin: 7px 0;
+    padding: 10px;
+    margin: 10px 0;
   }
   
   /* Darker chat container */

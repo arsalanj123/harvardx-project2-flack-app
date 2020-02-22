@@ -1,16 +1,11 @@
-function hello() {
-    alert("hi");
-};
+document.addEventListener('DOMContentLoaded', function() {
 
-// Function to change heading to say goodbye
-function hi() {
-    document.querySelector('h1').innerHTML = 'Goodbye!';
-};
-
-//document.addEventListener('DOMContentLoaded', function() {
-//    alert("hi");
-//});
-
+    document.querySelector('#my-form').onsubmit = function() {
+        const message = document.querySelector('#message-to-send').value;
+        alert(`Hello ${message}!`);
+    };
+});
+/*
 document.addEventListener('DOMContentLoaded', () => {
 
     // Connect to websocket
@@ -46,5 +41,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
+*/
 
