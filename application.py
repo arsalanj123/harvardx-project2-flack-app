@@ -2,6 +2,8 @@ import os
 from flask import Flask, request, session, render_template, redirect
 from flask_session import Session
 from flask_socketio import SocketIO, emit
+from datetime import datetime
+
 
 #Flask Application config
 app = Flask(__name__)
@@ -39,7 +41,9 @@ def index():
             return render_template("hompage.html")
     # when user added username and press submit button
         else:
-            request.form.get("username_from_form")
+            username = request.form.get("username_from_form")
+            session["username"] = username
+            print(username)
             return render_template("homepage.html")            
 
 
@@ -51,13 +55,19 @@ def main():
 #channel page
 @app.route("/channel", methods=["GET","POST"])
 def channel():
+  #  print(session["username"])
+#    if session["username"] != "":
     return render_template("channel.html")
+ #   else:
+ #   return redirect("/login")
 
 @socketio.on("submit vote")
 def vote(data):
+    username = session["username"]
     selection = data["selection"]
+    print(type(data))
     print(selection)
-    emit("announce vote", {"selection": selection}, broadcast=True)
+    emit("announce vote", {"selection": selection, "username": username}, broadcast=True)
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)

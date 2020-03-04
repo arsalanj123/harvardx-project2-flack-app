@@ -16,14 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // When a new vote is announced, add to the unordered list
   socket.on("announce vote", data => {
+    //Get Time
+    var today = new Date();
+    var time = today.getHours() + ":" + today.getMinutes();
+
     const p = document.createElement("p");
     const div = document.createElement("div");
     const span = document.createElement("span");
     const h5 = document.createElement("h5");
     div.className = "chat-container";
     span.className = "time-right";
-    h5.innerHTML = `Arsalan`;
-    span.innerHTML = `11:01`;
+    h5.innerHTML = `${data.username}`;
+    span.innerHTML = `${time}`;
     p.innerHTML = `${data.selection}`;
     div.appendChild(h5);
     div.appendChild(p);
