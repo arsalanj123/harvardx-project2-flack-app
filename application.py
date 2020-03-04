@@ -46,9 +46,6 @@ def index():
 #default page
 @app.route("/main", methods=["GET","POST"])
 def main():
-
-
-
     return render_template("homepage.html")
 
 #channel page
@@ -56,31 +53,11 @@ def main():
 def channel():
     return render_template("channel.html")
 
-
-
-
-@app.route("/navbar", methods=["GET","POST"])
-def navbar():
-    return render_template("navbar.html")
-
-
-@app.route("/test", methods=["GET","POST"])
-def test():
-    return render_template("test.html")
-
-#default page
-@app.route("/js-test", methods=["GET","POST"])
-def js():
-
-    return render_template("js-test.html")
-
 @socketio.on("submit vote")
 def vote(data):
     selection = data["selection"]
     print(selection)
     emit("announce vote", {"selection": selection}, broadcast=True)
 
-
-    
 if __name__ == "__main__":
     socketio.run(app, debug=True)
