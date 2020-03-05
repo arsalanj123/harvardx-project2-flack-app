@@ -5,48 +5,51 @@ from flask_socketio import SocketIO, emit
 from datetime import datetime
 
 
-#Flask Application config
+# Flask Application config
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.debug = Flask
 socketio = SocketIO(app)
 
-#Session configuration
+# Session configuration
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = 'filesystem'
 Session(app)
 
-#Socket
+# Socket
 
 all_users = ['user1', 'user2']
 all_channels = ['channel1', 'channel2', 'channel3']
 
+
 def find_larger(lst1, lst2):
-    
+
     if len(lst1) > len(lst2):
-       larger = "list1" 
+        larger = "list1"
     else:
         larger = "list2"
     return larger
 
-@app.route("/login", methods=["GET","POST"])
+
+
+@app.route("/login", methods=["GET", "POST"])
 def index():
 
-    #session check
+    # session check
     session["session_id"] = 0
     print(session["session_id"])
 
     if request.method == "GET":
-    #if user already loggedin
+        # if user already loggedin
         if session["session_id"] > 0:
             return redirect("/main")
-    #if user not loggedin 
+    # if user not loggedin
         else:
             return render_template("login.html")
 
-    #if post request
+    # if post request
     elif request.method == "POST":
-        
+
         # if user already loggedin
         if session["session_id"] > 0:
             return redirect("/main")
@@ -56,24 +59,35 @@ def index():
             session["username"] = username
             all_users.append(username)
             print(username)
-            return redirect("/main")            
+            return redirect("/main")
 
 
-#default page
-@app.route("/main", methods=["GET","POST"])
-def main():
+# default page
+@app.route("/main", methods=["GET", "POST"])
+def main():                
     larger = find_larger(all_users, all_channels)
     print(all_users)
-    return render_template("homepage.html", all_users = all_users, all_channels = all_channels, larger=larger)
+    return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger)
 
-#channel page
-@app.route("/channel", methods=["GET","POST"])
+@app.route("/channel_create", methods=["POST"])
+def channel_create():
+    new_channel_to_create = request.form.get("new_channel_from_form")
+    all_channels.append(new_channel_to_create)
+    larger = find_larger(all_users, all_channels)
+    print(all_users)
+    return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger)
+
+
+
+# channel page
+@app.route("/channel", methods=["GET", "POST"])
 def channel():
   #  print(session["username"])
-#    if session["username"] != "":
+    #    if session["username"] != "":
     return render_template("channel.html")
  #   else:
  #   return redirect("/login")
+
 
 @socketio.on("submit vote")
 def vote(data):
@@ -81,7 +95,9 @@ def vote(data):
     selection = data["selection"]
     print(type(data))
     print(selection)
-    emit("announce vote", {"selection": selection, "username": username}, broadcast=True)
+    emit("announce vote", {"selection": selection,
+                           "username": username}, broadcast=True)
+
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
