@@ -18,6 +18,17 @@ Session(app)
 
 #Socket
 
+all_users = ['user1', 'user2']
+all_channels = ['channel1', 'channel2', 'channel3']
+
+def find_larger(lst1, lst2):
+    
+    if len(lst1) > len(lst2):
+       larger = "list1" 
+    else:
+        larger = "list2"
+    return larger
+
 @app.route("/login", methods=["GET","POST"])
 def index():
 
@@ -28,7 +39,7 @@ def index():
     if request.method == "GET":
     #if user already loggedin
         if session["session_id"] > 0:
-            return redirect("homepage.html")
+            return redirect("/main")
     #if user not loggedin 
         else:
             return render_template("login.html")
@@ -38,19 +49,22 @@ def index():
         
         # if user already loggedin
         if session["session_id"] > 0:
-            return render_template("hompage.html")
+            return redirect("/main")
     # when user added username and press submit button
         else:
             username = request.form.get("username_from_form")
             session["username"] = username
+            all_users.append(username)
             print(username)
-            return render_template("homepage.html")            
+            return redirect("/main")            
 
 
 #default page
 @app.route("/main", methods=["GET","POST"])
 def main():
-    return render_template("homepage.html")
+    larger = find_larger(all_users, all_channels)
+    print(all_users)
+    return render_template("homepage.html", all_users = all_users, all_channels = all_channels, larger=larger)
 
 #channel page
 @app.route("/channel", methods=["GET","POST"])
