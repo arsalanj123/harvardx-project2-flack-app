@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // When a new vote is announced, add to the unordered list
   socket.on("announce vote", data => {
     //Get Time
-    var today = new Date();
-    var time = today.getHours() + ":" + today.getMinutes();
+    // var today = new Date();
+    // var time = today.getHours() + ":" + today.getMinutes();
 
     const p = document.createElement("p");
     const div = document.createElement("div");
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     div.className = "chat-container";
     span.className = "time-right";
     h5.innerHTML = `${data.username}`;
-    span.innerHTML = `${time}`;
+    span.innerHTML = `${data.time}`;
     p.innerHTML = `${data.selection}`;
     div.appendChild(h5);
     div.appendChild(p);

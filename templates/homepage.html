@@ -101,8 +101,8 @@
             {% for channel in all_channels %}
 
             <tr>
-              <td>{{all_users[loop.index0]}}</td>
-              <td>{{all_channels[loop.index0]}}</td>
+              <td><a href="/people/{{all_users[loop.index0]}}"> {{all_users[loop.index0]}} </a></td>
+              <td><a href="/channels/{{all_channels[loop.index0]}}"> {{all_channels[loop.index0]}} </a></td>
             </tr>
             {%endfor%}
             {% endif %}
@@ -126,6 +126,14 @@
     {% if javascript_alert is defined %}
     <script>alert("{{javascript_alert}}")</script>
     {%endif%}
+    
+    
+    <script>
+      function getURL(){window.location.href};
+      
+      if (!localStorage.getItem('url'))localStorage.setItem(getURL());
+      
+    </script>
 </body>
 
 </html>

@@ -20,7 +20,8 @@ Session(app)
 
 all_users = ['user1', 'user2']
 all_channels = ['channel1', 'channel2', 'channel3']
-
+Messages_all_channels = {}
+Messages_all_persons = {}
 
 def find_larger(lst1, lst2):
 
@@ -36,6 +37,7 @@ def find_larger(lst1, lst2):
 def index():
 
     # session check
+
     session["session_id"] = 0
     print(session["session_id"])
 
@@ -113,10 +115,24 @@ def people(person):
 def vote(data):
     username = session["username"]
     selection = data["selection"]
+    full_date = datetime.now()
+    message_time = str(full_date.hour)+" "+str(full_date.minute)
     print(type(data))
     print(selection)
+    print(message_time)
     emit("announce vote", {"selection": selection,
-                           "username": username}, broadcast=True)
+                           "username": username,
+                           "time": message_time}, broadcast=True)
+
+
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    print(session["session_id"])
+    session["session_id"] = 0
+    session["username"] = ""
+    return redirect("/login")
+
 
 
 if __name__ == "__main__":
