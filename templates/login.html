@@ -56,6 +56,9 @@
     </form
     <br><br>
   </div>
+  {% if javascript_alert is defined %}
+  <script>alert("{{javascript_alert}}")</script>
+  {%endif%}
 </body>
 
 </html>

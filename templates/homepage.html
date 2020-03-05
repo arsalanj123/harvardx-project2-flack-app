@@ -68,14 +68,9 @@
     <div id="body-below" class="container my-3 pt-3 border ">
       <div class="row mb-3">
         <div class="col-md-6 themed-grid-col">
-          <h2>People</h2>
-          <div class="text-centered">
 
-
-          </div>
         </div>
         <div class="col-md-6 themed-grid-col">
-          <h2>Channels</h2>
           <div class="text-centered">
             <br>
           </div>
@@ -85,8 +80,8 @@
         <table class="table table-hover table-bordered">
           <thead>
             <tr>
-              <th>People</th>
-              <th>Channels</th>
+              <th><h2>People<h2></th>
+              <th><h2>Channels<h2></th>
             </tr>
           </thead>
           <tbody>
@@ -96,8 +91,8 @@
             {% for user in all_users %}
 
             <tr>
-              <td>{{all_users[loop.index0]}}</td>
-              <td>{{all_channels[loop.index0]}}</td>
+              <td><a href="/people/{{all_users[loop.index0]}}"> {{all_users[loop.index0]}} </a></td>
+              <td><a href="/channels/{{all_channels[loop.index0]}}"> {{all_channels[loop.index0]}} </a></td>
             </tr>
 
             {%endfor%}
@@ -128,8 +123,9 @@
       </form>
       <br>
     </div>
-
-
+    {% if javascript_alert is defined %}
+    <script>alert("{{javascript_alert}}")</script>
+    {%endif%}
 </body>
 
 </html>

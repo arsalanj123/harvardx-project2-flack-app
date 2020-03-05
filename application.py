@@ -56,10 +56,13 @@ def index():
     # when user added username and press submit button
         else:
             username = request.form.get("username_from_form")
-            session["username"] = username
-            all_users.append(username)
-            print(username)
-            return redirect("/main")
+            if username in all_users:
+                return render_template("login.html", javascript_alert="Username Already exists! Please choose another one!")
+            else:                
+                session["username"] = username
+                all_users.append(username)
+                print(username)
+                return redirect("/main")
 
 
 # default page
@@ -71,13 +74,18 @@ def main():
 
 @app.route("/channel_create", methods=["POST"])
 def channel_create():
+    
     new_channel_to_create = request.form.get("new_channel_from_form")
-    all_channels.append(new_channel_to_create)
-    larger = find_larger(all_users, all_channels)
-    print(all_users)
-    return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger)
-
-
+    
+    if new_channel_to_create in all_channels:
+        larger = find_larger(all_users, all_channels)
+        return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger, javascript_alert="The Channel already exists!")
+    
+    else:
+        all_channels.append(new_channel_to_create)
+        larger = find_larger(all_users, all_channels)
+        print(all_users)
+        return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger)
 
 # channel page
 @app.route("/channel", methods=["GET", "POST"])
@@ -87,6 +95,18 @@ def channel():
     return render_template("channel.html")
  #   else:
  #   return redirect("/login")
+
+
+@app.route("/channels/<string:channel>", methods=['GET', 'POST'])
+def channels(channel):
+    return render_template("channel.html", channel=channel)
+
+@app.route("/people/<string:person>", methods=['GET', 'POST'])
+def people(person):
+    return render_template("people.html", person=person)
+
+
+
 
 
 @socketio.on("submit vote")
