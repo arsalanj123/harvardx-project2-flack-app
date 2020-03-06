@@ -20,9 +20,47 @@ Session(app)
 # Socket
 
 all_users = ['user1', 'user2']
-all_channels = ['channel1', 'channel2', 'channel3']
-Messages_all_channels = {}
+all_channels = ['Default_Channel_1', 'channel2', 'channel3']
+
+# all messages in all channels
+messages_all_channels = [
+	{
+		"Channel_Name": "Default_Channel_1",
+		"Channel_Messages": [
+			{
+				"UserName": "Junaid",
+				"MessageText": "Hello Arsalan",
+				"TimeStamp": "5 March 2020"
+			},
+			{
+				"UserName": "Arsalan",
+				"MessageText": "Hello Junaid",
+				"TimeStamp": "6 March 2020"
+			}
+		]
+	},
+	{
+		"Channel_Name": "Default_Channel_2",
+		"Channel_Messages": [
+			{
+				"UserName": "Junaid",
+				"MessageText": "Hello Arsalan",
+				"TimeStamp": "5 March 2020"
+			},
+			{
+				"UserName": "Junaid",
+				"MessageText": "Hello Arsalan",
+				"TimeStamp": "5 March 2020"
+			}
+		]
+	}
+]
+
+# all messages in all persons chats
 Messages_all_persons = {}
+
+
+
 
 def find_larger(lst1, lst2):
 
@@ -113,11 +151,33 @@ def channel():
  #   return redirect("/login")
 
 
+
 @app.route("/channels/<string:channel>", methods=['GET', 'POST'])
 def channels(channel):
     print(session["session_id"])
     print(session["username"])
-    return render_template("channel.html", channel=channel)
+#  print(type(channel))
+ #   print(channel)
+    channel_all_messages = {}
+    channel_dict = {}
+    #i for i, d in enumerate(listofpeople) if "Jack" in d.keys()
+    channel_index = [i for i, d in enumerate(messages_all_channels) if channel in d.values()]
+#    print(channel_index)
+    #value_index = 0
+
+    channel_dict = (messages_all_channels[channel_index[0]])
+    print(channel_dict)
+
+    for key1 in channel_dict:
+        if key1 == "Channel_Messages":
+            for items in channel_dict[key1]:
+                print(items)
+#                 channel_all_messages = key2
+#                 channel_all_messages.update
+        #print(d)
+   # print(channel_dict[messages_index])
+
+    return render_template("channel.html", channel=channel, all_channels = messages_all_channels, channel_all_messages = channel_all_messages)
 
 @app.route("/people/<string:person>", methods=['GET', 'POST'])
 def people(person):
@@ -141,7 +201,6 @@ def vote(data):
     emit("announce vote", {"selection": selection,
                            "username": username,
                            "time": message_time}, broadcast=True)
-    Messages_all_channels = {}
 
 
 @app.route("/logout", methods=["GET", "POST"])

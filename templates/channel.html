@@ -71,6 +71,11 @@
     <div id="body-below" class="container my-3 pt-3 border ">
       <div id="chat-head">
         <h2>Channel: {{channel}}</h2>
+        <h2>
+          {% for k, v in channel_all_messages %}
+          {{k}} {{v}}
+          {% endfor %}
+      </h2>
       </div>
       <div>
 
@@ -90,6 +95,8 @@
             <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
             <span class="time-left">11:05</span>
           </div>
+
+
         </div>
       </div>
       </div>
