@@ -19,8 +19,8 @@ Session(app)
 
 # Socket
 
-all_users = ['user1', 'user2']
-all_channels = ['Default_Channel_1', 'channel2', 'channel3']
+all_users = ['default_user_1', 'default_user_2']
+all_channels = ['Default_Channel_1', 'Default_Channel_2', 'Default_Channel_3']
 
 # all messages in all channels
 messages_all_channels = [
@@ -28,13 +28,13 @@ messages_all_channels = [
 		"Channel_Name": "Default_Channel_1",
 		"Channel_Messages": [
 			{
-				"UserName": "Junaid",
-				"MessageText": "Hello Arsalan",
+				"UserName": "default_user_1",
+				"MessageText": "Yo people!",
 				"TimeStamp": "5 March 2020"
 			},
 			{
-				"UserName": "Arsalan",
-				"MessageText": "Hello Junaid",
+				"UserName": "default_user_2",
+				"MessageText": "Heylo everyone, good morning!",
 				"TimeStamp": "6 March 2020"
 			}
 		]
@@ -43,13 +43,13 @@ messages_all_channels = [
 		"Channel_Name": "Default_Channel_2",
 		"Channel_Messages": [
 			{
-				"UserName": "Junaid",
-				"MessageText": "Hello Arsalan",
+				"UserName": "default_user_2",
+				"MessageText": "Hello :) :) :D",
 				"TimeStamp": "5 March 2020"
 			},
 			{
-				"UserName": "Junaid",
-				"MessageText": "Hello Arsalan",
+				"UserName": "default_user_2",
+				"MessageText": "Hello Arsalan :)",
 				"TimeStamp": "5 March 2020"
 			}
 		]
@@ -135,7 +135,11 @@ def channel_create():
     
     else:
         all_channels.append(new_channel_to_create)
+        new_channel_for_all_messages = {"Channel_Name": "", "Channel_Messages": [{}] }
+        new_channel_for_all_messages["Channel_Name"] = new_channel_to_create
+        messages_all_channels.append(new_channel_for_all_messages)
         larger = find_larger(all_users, all_channels)
+        print(messages_all_channels)
         print(all_users)
         return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger)
 
