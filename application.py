@@ -166,18 +166,21 @@ def channels(channel):
     #value_index = 0
 
     channel_dict = (messages_all_channels[channel_index[0]])
-    print(channel_dict)
-
-    for key1 in channel_dict:
-        if key1 == "Channel_Messages":
-            for items in channel_dict[key1]:
-                print(items)
+#    print(channel_dict)
+    
+    channel_messages_list_of_dict = channel_dict["Channel_Messages"]
+    print(channel_messages_list_of_dict)
+    # for key1 in channel_dict:
+    #     if key1 == "Channel_Messages":
+    #         print(key1)
+    #         for items in channel_dict[key1]:
+    #             print(items)
 #                 channel_all_messages = key2
 #                 channel_all_messages.update
         #print(d)
    # print(channel_dict[messages_index])
 
-    return render_template("channel.html", channel=channel, all_channels = messages_all_channels, channel_all_messages = channel_all_messages)
+    return render_template("channel.html", channel=channel, all_channels = messages_all_channels, channel_all_messages = channel_messages_list_of_dict)
 
 @app.route("/people/<string:person>", methods=['GET', 'POST'])
 def people(person):

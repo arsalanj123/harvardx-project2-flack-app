@@ -66,60 +66,34 @@
         </form>
       </div>
     </nav>
-
+  </div>
     <!--Nav Bar End-->
     <div id="body-below" class="container my-3 pt-3 border ">
+      
       <div id="chat-head">
-        <h2>Channel: {{channel}}</h2>
-        <h2>
-          {% for k, v in channel_all_messages %}
-          {{k}} {{v}}
-          {% endfor %}
-      </h2>
+        <h2>Channel: {{channel}}</h2>  
       </div>
-      <div>
-
-        <div id="chat-main-container" class="container">
+        <div id="chat-main-container" class="container pt-3">
           <div id ="votes">
-          <div class="chat-container">
-            <h4>Arsa</h4>
-            <span class="time-right">11:00</span>
-          </div>
-
-          <div class="chat-container">
-            <p>Sweet! So, what do you wanna do today?</p>
-            <span class="time-right">11:02</span>
-          </div>
-
-          <div class="chat-container darker">
-            <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-            <span class="time-left">11:05</span>
-          </div>
-
-
+            {% for value in channel_all_messages %}
+            <div class="chat-container">  
+              <h4>{{value['UserName']}}</h4>
+              <p>{{value['MessageText']}}</p>
+              <span class="time-right">{{value['TimeStamp']}}</span>
+            </div>
+            {% endfor %}
         </div>
       </div>
-      </div>
-        
         <br>
-
         <div class="form-group">
           <label for="comment">Send your message</label>
           <textarea class="form-control" id="message-to-send"></textarea>
           <br>
-
-          
             <button id="btnSubmit" type="button" value="Send Message">Send</button>
-          
-
       </div>
           <br>
         </div>
-
         <br>
-
-      </div>
-    </div>
-</body>
+      </body>
 
 </html>
