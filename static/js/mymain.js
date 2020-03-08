@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector("#btnSubmit").addEventListener("click", function() {
       const txtMessage = document.querySelector("#message-to-send");
-      socket.emit("submit vote", { selection: txtMessage.value });
+      const pageorchannel = document.querySelector("#channel-or-person");
+      socket.emit("submit vote", { selection: txtMessage.value, webname: pageorchannel.innerHTML });
     });
   });
 
@@ -19,20 +20,33 @@ document.addEventListener("DOMContentLoaded", () => {
     //Get Time
     // var today = new Date();
     // var time = today.getHours() + ":" + today.getMinutes();
+    const channel_name = `${data.channel}`;
+    const pageorchannel = document.querySelector("#channel-or-person");
 
-    const p = document.createElement("p");
-    const div = document.createElement("div");
-    const span = document.createElement("span");
-    const h5 = document.createElement("h5");
-    div.className = "chat-container";
-    span.className = "time-right";
-    h5.innerHTML = `${data.username}`;
-    span.innerHTML = `${data.time}`;
-    p.innerHTML = `${data.selection}`;
-    div.appendChild(h5);
-    div.appendChild(p);
-    div.appendChild(span);
-    document.querySelector("#votes").append(div);
+    if (channel_name === pageorchannel.innerHTML) {
+
+      const p = document.createElement("p");
+      const div = document.createElement("div");
+      const span = document.createElement("span");
+      const h5 = document.createElement("h5");
+      div.className = "chat-container";
+      span.className = "time-right";
+
+      h5.innerHTML = `${data.username}`;
+      span.innerHTML = `${data.time}`;
+      p.innerHTML = `${data.selection}`;
+      div.appendChild(h5);
+      div.appendChild(p);
+      div.appendChild(span);
+      document.querySelector("#votes").append(div);
+    }
+    else {
+      alert("The Channel "+`${channel_name}`+" has a new message");
+    }
+    });
   });
-});
+
+  
+
+
 

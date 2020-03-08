@@ -134,10 +134,15 @@ def channel_create():
         return render_template("homepage.html", all_users=all_users, all_channels=all_channels, larger=larger, javascript_alert="The Channel already exists!")
     
     else:
+        
         all_channels.append(new_channel_to_create)
+        
         new_channel_for_all_messages = {"Channel_Name": "", "Channel_Messages": [{}] }
+        
         new_channel_for_all_messages["Channel_Name"] = new_channel_to_create
+        
         messages_all_channels.append(new_channel_for_all_messages)
+
         larger = find_larger(all_users, all_channels)
         print(messages_all_channels)
         print(all_users)
@@ -202,12 +207,48 @@ def vote(data):
     selection = data["selection"]
     full_date = datetime.now()
     message_time = str(full_date.hour)+" "+str(full_date.minute)
-    print(type(data))
-    print(selection)
-    print(message_time)
+    channel_name = data["webname"]
+ 
+    print(data)
+    print(channel_name)
+    #print(type(data))
+    #print(selection)
+    #print(message_time)
+ 
     emit("announce vote", {"selection": selection,
                            "username": username,
-                           "time": message_time}, broadcast=True)
+                           "time": message_time,
+                           "channel": channel_name}, broadcast=True)
+    print("hi")
+
+
+    for each_channel in messages_all_channels:
+
+        if each_channel["Channel_Name"] == channel_name:
+
+            print("hlo") 
+
+            each_channel["Channel_Messages"].append({
+            'UserName': username, 'MessageText': selection, 'TimeStamp': message_time
+            })
+
+        # print(each_channel["Channel_Messages"])
+
+    print(messages_all_channels)
+            # for each_message in each_channel["Channel_Messages"]:
+                
+            #     each_message["UserName"] = username             
+            #     each_message["MessageText"] = selection
+            #     each_message["TimeStamp"] = message_time
+
+            #     new_message = each_message
+    
+            # print(new_message)
+
+    # each_channel["Channel_Messages"].append(new_message)
+
+    #    print(each_channel)
+    # print(messages_all_channels)
 
 
 @app.route("/logout", methods=["GET", "POST"])
