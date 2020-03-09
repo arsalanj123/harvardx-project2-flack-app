@@ -18,6 +18,7 @@ app.config["SESSION_TYPE"] = 'filesystem'
 Session(app)
 
 # Socket
+channel_message_count = 98
 
 all_users = ['default_user_1', 'default_user_2']
 all_channels = ['Default_Channel_1', 'Default_Channel_2']
@@ -264,39 +265,27 @@ def vote(data):
                            "username": username,
                            "time": message_time,
                            "channel": channel_name}, broadcast=True)
-    print("hi")
 
     for each_channel in messages_all_channels:
 
         if each_channel["Channel_Name"] == channel_name:
 
             # check if channel has 100 messages
-            print(len(each_channel["Channel_Messages"]))
 
-            print("hlo")
+            channel_message_count = len(each_channel["Channel_Messages"])
+            print (channel_message_count)
 
-            each_channel["Channel_Messages"].append({
+            if channel_message_count >= 100:
+                print (channel_message_count)
+                each_channel["Channel_Messages"].pop(0)
+                each_channel["Channel_Messages"].append({
                 'UserName': username, 'MessageText': selection, 'TimeStamp': message_time
-            })
+                })
 
-        # print(each_channel["Channel_Messages"])
-
-    print(messages_all_channels)
-    # for each_message in each_channel["Channel_Messages"]:
-
-    #     each_message["UserName"] = username
-    #     each_message["MessageText"] = selection
-    #     each_message["TimeStamp"] = message_time
-
-    #     new_message = each_message
-
-    # print(new_message)
-
-    # each_channel["Channel_Messages"].append(new_message)
-
-    #    print(each_channel)
-    # print(messages_all_channels)
-
+            else:
+                each_channel["Channel_Messages"].append({
+                    'UserName': username, 'MessageText': selection, 'TimeStamp': message_time
+                })
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
