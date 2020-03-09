@@ -20,7 +20,7 @@ Session(app)
 # Socket
 
 all_users = ['default_user_1', 'default_user_2']
-all_channels = ['Default_Channel_1', 'Default_Channel_2', 'Default_Channel_3']
+all_channels = ['Default_Channel_1', 'Default_Channel_2']
 
 # all messages in all channels
 messages_all_channels = [
@@ -30,12 +30,12 @@ messages_all_channels = [
 			{
 				"UserName": "default_user_1",
 				"MessageText": "Yo people!",
-				"TimeStamp": "5 March 2020"
+				"TimeStamp": "17 11"
 			},
 			{
 				"UserName": "default_user_2",
 				"MessageText": "Heylo everyone, good morning!",
-				"TimeStamp": "6 March 2020"
+				"TimeStamp": "17 11"
 			}
 		]
 	},
@@ -45,12 +45,12 @@ messages_all_channels = [
 			{
 				"UserName": "default_user_2",
 				"MessageText": "Hello :) :) :D",
-				"TimeStamp": "5 March 2020"
+				"TimeStamp": "17 11"
 			},
 			{
 				"UserName": "default_user_2",
 				"MessageText": "Hello Arsalan :)",
-				"TimeStamp": "5 March 2020"
+				"TimeStamp": "17 11"
 			}
 		]
 	}
@@ -70,7 +70,9 @@ def find_larger(lst1, lst2):
         larger = "list2"
     return larger
 
-
+@app.route("/")
+def default():
+    return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"])
 def index():
@@ -135,13 +137,15 @@ def channel_create():
     
     else:
         
-        all_channels.append(new_channel_to_create)
+
         
-        new_channel_for_all_messages = {"Channel_Name": "", "Channel_Messages": [{}] }
+        new_channel_for_all_messages = {"Channel_Name": "", "Channel_Messages": [] }
         
         new_channel_for_all_messages["Channel_Name"] = new_channel_to_create
         
+        #add channel to dict and list
         messages_all_channels.append(new_channel_for_all_messages)
+        all_channels.append(new_channel_to_create)
 
         larger = find_larger(all_users, all_channels)
         print(messages_all_channels)
@@ -222,9 +226,13 @@ def vote(data):
     print("hi")
 
 
+
     for each_channel in messages_all_channels:
 
         if each_channel["Channel_Name"] == channel_name:
+
+    #check if channel has 100 messages
+            print(len(each_channel["Channel_Messages"]))
 
             print("hlo") 
 
