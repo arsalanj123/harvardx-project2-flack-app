@@ -1,3 +1,3 @@
 # Project 2
 
-Web Programming with Python and JavaScript
+Web and Socket Programming with Python and JavaScript
